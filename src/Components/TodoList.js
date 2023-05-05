@@ -11,7 +11,8 @@ function TodoList (){
     const [todos, setTodos] = useState([])
 
     useEffect(() =>{
-    }, [todos])
+        getActions()
+    }, [])
 
     const getActions = async () => {
         const res = await axios.get(BASE_URL)
