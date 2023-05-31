@@ -1,26 +1,23 @@
 import React from 'react'
-import { useState } from 'react'
+import { Button } from 'react-bootstrap'
+
 
 const Todo = ({actionDelete, actionUpdate, todo}) =>{
 
 const handleClick = () =>{
     actionDelete(todo)
-    console.log('Button Testing')
 }
 
 const markDone = () => {
     actionUpdate(todo)
-    console.log('Update Button')
 }
 
-
-
     return(
-        <div className={todo.isCompleted ? 'completed' : ''}>
+        <div className='Todo'> <div className={todo.isCompleted ? 'completed' : ''}>
             {todo.action}
-            {todo.isCompleted}
-            <button onClick={handleClick}>Delete</button>
-            <button onClick={markDone}>Mark Done</button>
+            <Button className="actionBtn" variant="outline-success" type="button" onClick={markDone}>Task Completed</Button>
+            <Button class="deleteBtn" variant="outline-danger" type="button" onClick={handleClick}>Delete</Button>
+            </div>
         </div>
     )
 }

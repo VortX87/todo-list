@@ -4,42 +4,44 @@ import axios from 'axios';
 import AddTodo from './AddTodo';
 import Todo from './Todo';
 
+
 const BASE_URL = "http://localhost:5000/"
 
 function TodoList (){
 
     const [todos, setTodos] = useState([])
+    const [count, setCount] = useState(0)
 
     useEffect(() =>{
-        getActions()
-    }, [])
+      getActions()
+    }, [count])
 
     const getActions = async () => {
         const res = await axios.get(BASE_URL)
         setTodos(res.data)
       }
-      const actionCreator = async (action) =>{
+    const actionCreator = async (action) =>{
          await axios.post(BASE_URL, {action: action})
-        getActions()
+        setCount(count+1)
       }
 
-      const actionDelete = async (todo) =>{
+    const actionDelete = async (todo) =>{
         await axios.delete(`${BASE_URL}${todo.id}`)
-        getActions()
+        setCount(count+1)
       }
 
-      const actionUpdate = async (todo) =>{
+    const actionUpdate = async (todo) =>{
         await axios.patch(`${BASE_URL}${todo.id}`)
-        getActions()
+        setCount(count+1)
       }
 
     return(
-        <div>
+        <div className='TodoWrapper'>
             <AddTodo actionCreator={actionCreator}/>
             {todos.map((todo) =>(
                 <Todo actionDelete={actionDelete} todo={todo} actionUpdate={actionUpdate}/>       
         ))}
-            </div>
+          </div>
     )
 }
 
